@@ -1,4 +1,4 @@
-namespace SpaceBattle;
+﻿namespace SpaceBattle;
 
 public interface IRotable
 {
@@ -8,7 +8,7 @@ public interface IRotable
 
 public class RotateCommand : ICommand
 {
-    IRotable _rotable;
+    private readonly IRotable _rotable;
 
     public RotateCommand(IRotable rotable)
     {
