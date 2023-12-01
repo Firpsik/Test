@@ -43,7 +43,7 @@ namespace SpaceBattle.Tests
         [Given(@"невозможно изменить угол наклона к оси OX космического корабля")]
         public void ДопустимНевозможноИзменитьУголНаклонаКОсиOXКосмическогоКорабля()
         {
-            rotateMock.SetupGet(r => r.AngularVelocity).Throws<Exception>();
+            rotateMock.SetupSet(r => r.Direction = It.IsAny<Angle>()).Throws<Exception>();
         }
 
         [When(@"происходит вращение вокруг собственной оси")]
