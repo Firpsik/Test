@@ -50,9 +50,9 @@ namespace SpaceBattle.Tests
         [Fact]
         public void MacroTest()
         {
-            _ = new Creation();
+            _ = new CreateStrategy();
 
-            Creation.Invoke("Burn_Fuel", obj.Object);
+            CreateStrategy.Invoke("Burn_Fuel", obj.Object);
 
             new_strategy.Verify();
             ReturnCommand.Verify();

@@ -2,7 +2,7 @@
 
 using Hwdtech;
 
-public class Creation
+public class CreateStrategy
 {
     public static object Invoke(params object[] args)
     {
