@@ -25,9 +25,13 @@ namespace SpaceBattle.Tests
         {
             var commandMock = new Mock<ICommand>();
             var queueMock = new Mock<IQueue>();
+            var rotCommand = new Mock<ICommand>();
+            var injectMock = new Mock<ICommand>();
 
-            IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Rotating.Command", (object[] args) => commandMock.Object).Execute();
+            IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Rotating.Command", (object[] args) => rotCommand.Object).Execute();
+            IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "UObject.Register", (object[] args) => commandMock.Object).Execute();
             IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Queue", (object[] args) => queueMock.Object).Execute();
+            IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "InjectCommand", (object[] args) => injectMock.Object).Execute();
 
             startRotateCommand.Execute();
             rotateCommandStartableMock.Verify(r => r.initValues, Times.Once());

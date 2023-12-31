@@ -2,7 +2,7 @@
 
 namespace SpaceBattle;
 
-public class StartRotateCommand
+public class StartRotateCommand : ICommand
 {
     private readonly IRotateCommandStartable obj;
     public StartRotateCommand(IRotateCommandStartable Obj)
@@ -12,9 +12,12 @@ public class StartRotateCommand
 
     public void Execute()
     {
-        obj.initValues.ToList().ForEach(operation => obj.UObject.SetProperty(operation.Key, operation.Value));
+        obj.initValues.ToList().ForEach(operation => IoC.Resolve<ICommand>("UObject.Register", obj.UObject, operation.Key, operation.Value).Execute());
+
         var rotate_command = IoC.Resolve<ICommand>("Rotating.Command", obj.UObject);
-        obj.UObject.SetProperty("Rotate", rotate_command);
-        IoC.Resolve<IQueue>("Queue").Add(rotate_command);
+        var injectCommand = IoC.Resolve<ICommand>("InjectCommand", rotate_command);
+
+        IoC.Resolve<ICommand>("UObject.Register", obj.UObject, "Rotating.Command", rotate_command).Execute();
+        IoC.Resolve<IQueue>("Queue", injectCommand).Add(rotate_command);
     }
 }
